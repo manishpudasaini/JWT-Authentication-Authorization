@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springsecurityjwt
+    username: postgres
+    password: Eziomanish@1
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    showSql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
