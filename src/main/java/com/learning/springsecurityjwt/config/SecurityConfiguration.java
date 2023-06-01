@@ -22,9 +22,7 @@ public class SecurityConfiguration {
     //this bean is used to configure security
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
-                .authorizeRequests()
+        http.authorizeRequests()
                 .requestMatchers(permitAllRequestMatcher())
                 .permitAll() // Permit all requests matching the provided matcher
                 .anyRequest()
@@ -39,7 +37,7 @@ public class SecurityConfiguration {
 
     @Bean
     public RequestMatcher permitAllRequestMatcher() {
-        return new AntPathRequestMatcher(""); // Match all requests
+        return new AntPathRequestMatcher("/api/v1/auth/**"); // Match all requests
     }
 
 

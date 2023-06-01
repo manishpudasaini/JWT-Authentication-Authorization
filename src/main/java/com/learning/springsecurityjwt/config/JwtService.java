@@ -22,7 +22,6 @@ public class JwtService {
 
     //method to extract username
     public String extractUsername(String token) {
-
         return extractClaim(token,Claims::getSubject);
     }
     public <T> T extractClaim(String token, Function<Claims,T> claimsResolver){
@@ -35,7 +34,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*60)) //so the token will expire in 24hr
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) //so the token will expire in 24hr
                 .signWith(getSignIngKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -55,7 +54,7 @@ public class JwtService {
     //method to validate token
     public boolean isTokenValidate(String token,UserDetails userDetails){
         final String userName = extractUsername(token);
-        return userName.equals(userDetails.getUsername()) && !isTokenExpired(token);
+        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
     //this method is used to check if the token is expired or not
